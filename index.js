@@ -1,8 +1,8 @@
-const precioMouse = 5;
-const precioTeclado = 4;
-const precioWebcam = 6;
-const precioHeadest = 3;
-const precioMonitor = 2;
+const precioMouse = 50;
+const precioTeclado = 40;
+const precioWebcam = 30;
+const precioHeadest = 70;
+const precioMonitor = 100;
 
 let flag; // variable para indicar si quiere pedir otro producto
 let total = 0; // variable que almacena el total de la factura
