@@ -6,7 +6,7 @@ const productos = [
         imagen: "./img/bungecougar.jpg",
         categoria: {
             nombre: "Otros",
-            id: "bunge"
+            id: "Otros"
         },
         precio: 1000
     },
@@ -15,8 +15,8 @@ const productos = [
         titulo: "Combo Redragon",
         imagen: "./img/comboredragon.jpg",
         categoria: {
-            nombre: "Otros",
-            id: "combo"
+            nombre: "combo",
+            id: "Otros"
         },
         precio: 1000
     },
@@ -26,7 +26,7 @@ const productos = [
         imagen: "./img/gpro.jpg",
         categoria: {
             nombre: "Mouse",
-            id: "Mouse"
+            id: "Mouses"
         },
         precio: 1000
     },
@@ -35,8 +35,8 @@ const productos = [
         titulo: "Auriculares Hyperx",
         imagen: "./img/headhyperx.jpg",
         categoria: {
-            nombre: "Otros",
-            id: "Auriculares"
+            nombre: "Auriculares",
+            id: "Otros"
         },
         precio: 1000
     },
@@ -45,8 +45,8 @@ const productos = [
         titulo: "Joystick",
         imagen: "./img/joystick.jpg",
         categoria: {
-            nombre: "Otros",
-            id: "Joystick"
+            nombre: "Joystick",
+            id: "Otros"
         },
         precio: 1000
     },
@@ -55,8 +55,8 @@ const productos = [
         titulo: "Teclado Redragon",
         imagen: "./img/keyboardredragon.jpg",
         categoria: {
-            nombre: "Otros",
-            id: "teclado"
+            nombre: "teclado",
+            id: "Otros"
         },
         precio: 1000
     },
@@ -65,8 +65,8 @@ const productos = [
         titulo: "Monitor ",
         imagen: "./img/monitor.jpg",
         categoria: {
-            nombre: "Monitores",
-            id: "monitor"
+            nombre: "Monitor",
+            id: "Monitores"
         },
         precio: 1000
     },
@@ -75,8 +75,8 @@ const productos = [
         titulo: "Monitor en oferta",
         imagen: "./img/monitorOff.png",
         categoria: {
-            nombre: "Monitores",
-            id: "monitor off"
+            nombre: "monitor off",
+            id: "Monitores"
         },
         precio: 1000
     },
@@ -85,8 +85,8 @@ const productos = [
         titulo: "Mouse g403",
         imagen: "./img/mouseLogitech.jpg",
         categoria: {
-            nombre: "Mouses",
-            id: "g403"
+            nombre: "G403",
+            id: "Mouses"
         },
         precio: 1000
     },
@@ -95,8 +95,8 @@ const productos = [
         titulo: "Mousepad Stellseries",
         imagen: "./img/padstell.jpg",
         categoria: {
-            nombre: "Otros",
-            id: "padstell"
+            nombre: "padstell",
+            id: "Otros"
         },
         precio: 1000
     },
@@ -105,8 +105,8 @@ const productos = [
         titulo: "Teclado",
         imagen: "./img/teclado-hyperx.png",
         categoria: {
-            nombre: "Otros",
-            id: "teclado-hyperx"
+            nombre: "teclado-hyperx",
+            id: "Otros"
         },
         precio: 1000
     },
@@ -115,16 +115,21 @@ const productos = [
         titulo: "Placa de video",
         imagen: "./img/video.png",
         categoria: {
-            nombre: "otros",
-            id: "abrigos"
+            nombre: "Placa de video",
+            id: "Otros"
         },
         precio: 1000
     },
 ]
 const contenedorProductos = document.querySelector("#contenedor-productos")
+const botonesCategorias = document.querySelectorAll (".boton-categoria")
+const tituloPrincipal = document.querySelector("#titulo-principal")
 
-function cargarProductos() {
-    productos.forEach( producto => {
+function cargarProductos(productosElegidos) {
+
+    contenedorProductos.innerHTML = ""
+
+    productosElegidos.forEach( producto => {
         
         const div = document.createElement("div")
         div.classList.add("producto")
@@ -142,4 +147,24 @@ function cargarProductos() {
     })
 
 }
-cargarProductos();
+cargarProductos(productos)
+
+
+
+botonesCategorias.forEach(boton =>{
+    boton.addEventListener("click", (e) => {
+
+        botonesCategorias.forEach(boton => boton.classList.remove("active") )
+        e.currentTarget.classList.add("active")
+
+        if(e.currentTarget.id != "Todos"){
+            const productoCategoria = productos.find (producto => producto.categoria.id === e.currentTarget.id)
+
+            tituloPrincipal.innerText =productoCategoria.categoria.nombre
+            const productosBoton = productos.filter ( producto => producto.categoria.id === e.currentTarget.id)
+            cargarProductos(productosBoton)}
+        else {
+            cargarProductos(productos)
+        }
+    })
+})
