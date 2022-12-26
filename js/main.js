@@ -129,6 +129,14 @@ const tituloPrincipal = document.querySelector("#titulo-principal")
 let botonesAgregar = document.querySelectorAll (".producto-agregar")
 const numerito = document.querySelector ("#numerito")
 
+// Hago uso del Fetch
+let productosJson = []
+fetch("./js/productos.json")
+    .then (response => response.json())
+    .then (data =>  {
+        productosJson = data
+        cargarProductos(productosJson)
+    })
 
 // Cargo productos a travez de un array 
 function cargarProductos(productosElegidos) {
@@ -155,7 +163,7 @@ function cargarProductos(productosElegidos) {
     actualizarBotonesAgregar()
     
 }
-cargarProductos(productos)
+cargarProductos(productosJson)
 
 //Uso valores ternarios en el buscador
 document.addEventListener("keyup", e=> {
