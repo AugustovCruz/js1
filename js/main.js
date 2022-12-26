@@ -1,127 +1,3 @@
-const productos = [
-    // Productos en venta
-    {
-        id: "01",
-        titulo: "Bunge Cougar",
-        imagen: "./img/bungecougar.jpg",
-        categoria: {
-            nombre: "Otros",
-            id: "Otros"
-        },
-        precio: 1000
-    },
-    {
-        id: "02",
-        titulo: "Combo Redragon",
-        imagen: "./img/comboredragon.jpg",
-        categoria: {
-            nombre: "combo",
-            id: "Otros"
-        },
-        precio: 1000
-    },
-    {
-        id: "03",
-        titulo: "Logitech gpro",
-        imagen: "./img/gpro.jpg",
-        categoria: {
-            nombre: "Mouse",
-            id: "Mouses"
-        },
-        precio: 1000
-    },
-    {
-        id: "04",
-        titulo: "Auriculares Hyperx",
-        imagen: "./img/headhyperx.jpg",
-        categoria: {
-            nombre: "Auriculares",
-            id: "Otros"
-        },
-        precio: 1000
-    },
-    {
-        id: "05",
-        titulo: "Joystick",
-        imagen: "./img/joystick.jpg",
-        categoria: {
-            nombre: "Joystick",
-            id: "Otros"
-        },
-        precio: 1000
-    },
-    {
-        id: "06",
-        titulo: "Teclado Redragon",
-        imagen: "./img/keyboardredragon.jpg",
-        categoria: {
-            nombre: "teclado",
-            id: "Otros"
-        },
-        precio: 1000
-    },
-    {
-        id: "07",
-        titulo: "Monitor ",
-        imagen: "./img/monitor.jpg",
-        categoria: {
-            nombre: "Monitor",
-            id: "Monitores"
-        },
-        precio: 1000
-    },
-    {
-        id: "08",
-        titulo: "Monitor en oferta",
-        imagen: "./img/monitorOff.png",
-        categoria: {
-            nombre: "monitor off",
-            id: "Monitores"
-        },
-        precio: 1000
-    },
-    {
-        id: "09",
-        titulo: "Mouse g403",
-        imagen: "./img/mouseLogitech.jpg",
-        categoria: {
-            nombre: "G403",
-            id: "Mouses"
-        },
-        precio: 1000
-    },
-    {
-        id: "10",
-        titulo: "Mousepad Stellseries",
-        imagen: "./img/padstell.jpg",
-        categoria: {
-            nombre: "padstell",
-            id: "Otros"
-        },
-        precio: 1000
-    },
-    {
-        id: "11",
-        titulo: "Teclado",
-        imagen: "./img/teclado-hyperx.png",
-        categoria: {
-            nombre: "teclado-hyperx",
-            id: "Otros"
-        },
-        precio: 1000
-    },
-    {
-        id: "12",
-        titulo: "Placa de video",
-        imagen: "./img/video.png",
-        categoria: {
-            nombre: "Placa de video",
-            id: "Otros"
-        },
-        precio: 1000
-    },
-]
-
 // Interaccion con el DOM 
 const contenedorProductos = document.querySelector("#contenedor-productos")
 const botonesCategorias = document.querySelectorAll (".boton-categoria")
@@ -163,13 +39,12 @@ function cargarProductos(productosElegidos) {
     actualizarBotonesAgregar()
     
 }
-cargarProductos(productosJson)
 
 //Uso valores ternarios en el buscador
 document.addEventListener("keyup", e=> {
 
     const buscador= (e.target.value || "" ).toLowerCase()
-    const productosFiltrados = buscador ? productos.filter(producto => producto.titulo.toLowerCase().includes(buscador)) : productos
+    const productosFiltrados = buscador ? productosJson.filter(producto => producto.titulo.toLowerCase().includes(buscador)) : productosJson
     cargarProductos(productosFiltrados)
 })
 
@@ -180,14 +55,14 @@ botonesCategorias.forEach(boton =>{
         e.currentTarget.classList.add("active")
 
         if(e.currentTarget.id != "Todos"){
-            const productoCategoria = productos.find (producto => producto.categoria.id === e.currentTarget.id)
+            const productoCategoria = productosJson.find (producto => producto.categoria.id === e.currentTarget.id)
 
             tituloPrincipal.innerText =productoCategoria.categoria.nombre
-            const productosBoton = productos.filter ( producto => producto.categoria.id === e.currentTarget.id)
+            const productosBoton = productosJson.filter ( producto => producto.categoria.id === e.currentTarget.id)
             cargarProductos(productosBoton)}
         else {
             tituloPrincipal.innerText = "Todos los productos"
-            cargarProductos(productos)
+            cargarProductos(productosJson)
         }
     })
 })
@@ -199,9 +74,7 @@ function actualizarBotonesAgregar() {
         boton.addEventListener("click", agregarAlCarrito)
     })
 }
-
 // Creo un array para ir guardandolos en el carrito
-
 let productosEnCarrito
 
 const productosEnCarritoLS = localStorage.getItem("productos-en-carrito")
@@ -211,7 +84,6 @@ if (productosEnCarritoLS){
 } else {
     productosEnCarrito = []
 }
-
 
 //Agrego productos al array para el carrito
 function agregarAlCarrito(e) {
@@ -232,7 +104,7 @@ function agregarAlCarrito(e) {
         }).showToast();
 
     const idBoton= e.currentTarget.id
-    const productoAgregado = productos.find(producto => producto.id === idBoton)
+    const productoAgregado = productosJson.find(producto => producto.id === idBoton)
     if(productosEnCarrito.some(producto => producto.id === idBoton)){
         const index = productosEnCarrito.findIndex(producto =>producto.id === idBoton)
         productosEnCarrito[index].cantidad++
