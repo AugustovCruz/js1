@@ -129,6 +129,7 @@ const tituloPrincipal = document.querySelector("#titulo-principal")
 let botonesAgregar = document.querySelectorAll (".producto-agregar")
 const numerito = document.querySelector ("#numerito")
 
+
 // Cargo productos a travez de un array 
 function cargarProductos(productosElegidos) {
     
@@ -156,7 +157,13 @@ function cargarProductos(productosElegidos) {
 }
 cargarProductos(productos)
 
+//Uso valores ternarios en el buscador
+document.addEventListener("keyup", e=> {
 
+    const buscador= (e.target.value || "" ).toLowerCase()
+    const productosFiltrados = buscador ? productos.filter(producto => producto.titulo.toLowerCase().includes(buscador)) : productos
+    cargarProductos(productosFiltrados)
+})
 
 botonesCategorias.forEach(boton =>{
     boton.addEventListener("click", (e) => {
@@ -200,6 +207,22 @@ if (productosEnCarritoLS){
 
 //Agrego productos al array para el carrito
 function agregarAlCarrito(e) {
+    //Uso de librerias
+    Toastify({
+        text: "Se agregó producto al carrito",
+        duration: 3000,
+        destination: "./carrito.html",
+        newWindow: true,
+        close: true,
+        gravity: "top", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+            background: "blue",
+        },
+        onClick: function(){} 
+        }).showToast();
+
     const idBoton= e.currentTarget.id
     const productoAgregado = productos.find(producto => producto.id === idBoton)
     if(productosEnCarrito.some(producto => producto.id === idBoton)){
@@ -211,6 +234,7 @@ function agregarAlCarrito(e) {
         
     }
     actualizarNumerito()
+    //Uso el local storage para almacenar en el carrito los productos elegidos
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito))
     
 }
@@ -220,3 +244,4 @@ function actualizarNumerito () {
     let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0)
     numerito.innerText= nuevoNumerito
 }
+
