@@ -74,10 +74,10 @@
         "titulo": "Monitor en oferta",
         "imagen": "./img/monitorOff.png",
         "categoria": {
-            "nombre": "monitor off",
+            "nombre": "onitor off",
             "id": "Monitores"
         },
-        " precio": 1000
+        "precio": 1000
     },
     {
         "id": "09",
